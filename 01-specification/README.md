@@ -15,8 +15,12 @@ SPDX-License-Identifier: MIT
   - [Mobile application](#mobile-application)
   - [Web server](#web-server)
   - [The temperature sensor](#the-temperature-sensor)
+  - [The interfaces](#the-interfaces)
+    - [Presentation](#presentation-1)
+    - [Mobile application \<=\> the web server](#mobile-application--the-web-server)
+    - [Things \<=\> the web server](#things--the-web-server)
 - [Constraints and rules](#constraints-and-rules)
-  - [Presentation](#presentation-1)
+  - [Presentation](#presentation-2)
   - [General](#general)
   - [Documentation](#documentation)
   - [Mobile application](#mobile-application-1)
@@ -92,6 +96,28 @@ The description of the needs of the web server is available in the
 
 The description of the needs of the temperature sensor is available in the
 [01-specification/03-temperature-sensor/README.md](03-temperature-sensor/README.md) file.
+
+### The interfaces
+
+#### Presentation
+
+The interfaces are described with the OpenAPI specification. The OpenAPI specification is a standard
+which allows to describe the API of a web server. The OpenAPI specification is a YAML file.
+
+You can preview it in Visual Studio Code with the extension: `42crunch.vscode-openapi`. You can
+also preview it by copy/paste its content on the
+[Swagger editor Web page](https://editor.swagger.io/).
+
+#### Mobile application <=> the web server
+
+The description of the interface between the mobile application and the web server is available in
+the [mobile_app-server-api.yaml](05-interfaces/01-mobile_app-server/mobile_app-server-api.yaml)
+file.
+
+#### Things <=> the web server
+
+The description of the interface between the things and the web server is available in
+the [things-server-api.yaml](05-interfaces/02-things-server/things-server-api.yaml) file.
 
 ## Constraints and rules
 

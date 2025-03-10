@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Benoit Rolandeau <benoit.rolandeau@allcircuits.com>
+#
+# SPDX-License-Identifier: MIT
+
 openapi: 3.0.3
 info:
   title: ESAIP Lessons - Mobile App/Server - OpenAPI 3.0
