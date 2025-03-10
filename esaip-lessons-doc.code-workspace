@@ -1,0 +1,26 @@
+// SPDX-FileCopyrightText: 2025 Benoit Rolandeau <benoit.rolandeau@allcircuits.com>
+//
+// SPDX-License-Identifier: MIT
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.overviewRulerBorder": true,
+        "editor.rulers": [
+            100
+        ],
+    },
+    "extensions": {
+        "recommendations": [
+            "yzhang.markdown-all-in-one",
+            "bierner.markdown-mermaid",
+            "davidanson.vscode-markdownlint",
+            "42crunch.vscode-openapi",
+            "gruntfuggly.todo-tree",
+            "redhat.vscode-yaml"
+        ]
+    }
+}

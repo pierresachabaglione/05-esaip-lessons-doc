@@ -1,0 +1,493 @@
+openapi: 3.0.3
+info:
+  title: ESAIP Lessons - Things/Server - OpenAPI 3.0
+  description: |-
+    This is the description of the Http API interface between the Things and
+    the app server.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: benoit.rolandeau@allcircuits.com
+  license:
+    name: MIT
+    url: ../../../LICENSES/MIT.txt
+  version: 1.0.0
+externalDocs:
+  description: Find out more about this interface
+  url: ../README.md
+servers:
+  - url: https://localhost:3001/api/v1
+tags:
+  - name: Tests
+    description: This section contains all the API used for testing the server
+  - name: Things
+    description: This section contains all the API used for managing the devices
+paths:
+  /hello:
+    get:
+      tags:
+        - Tests
+      summary: Send a Hello World message
+      description: |-
+        This method is used to test if you server is up and running
+      responses:
+        "200":
+          description: successful operation
+          content:
+            text/plain: { example: "Hello, World!" }
+        "500":
+          description: A problem occurred on the server in the process
+  /things/register:
+    post:
+      tags:
+        - Things
+      summary: Register a new thing
+      description: |-
+        This method is used to register a new thing to the server.
+
+        If a thing with the same serial number is already registered, the server will return an
+        error.
+
+        If a thing isn't registered, it couldn't communicate with the server.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ThingData"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyData"
+        "400":
+          description: The parameters sent are incorrect
+        "409":
+          description: The thing is already registered
+        "500":
+          description: A problem occurred on the server in the process
+  /things/{serialNumber}:
+    get:
+      tags:
+        - Things
+      summary: Get the information of a thing
+      description: |-
+        This method is used to get the information of a thing
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to get the information from
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThingData"
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: |-
+            The things is not registered, the API Key is incorrect or the thing has no right to
+            request this
+        "500":
+          description: A problem occurred on the server in the process
+
+    put:
+      tags:
+        - Things
+      summary: Modify the information of a thing
+      description: |-
+        This method is used to get the information of a thing
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to update the information
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+      security:
+        - api_key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ThingData"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThingData"
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: The API Key is incorrect or the thing has no right to request this
+        "500":
+          description: A problem occurred on the server in the process
+
+    delete:
+      tags:
+        - Things
+      summary: Delete a thing from the server
+      description: |-
+        This method is used to unregister or delete a thing from the server.
+
+        After this operation, the thing will no longer be able to communicate with the server.
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to update the information
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThingData"
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: The API Key is incorrect or the thing has no right to request this
+        "500":
+          description: A problem occurred on the server in the process
+
+  /things/{serialNumber}/attributes:
+    get:
+      tags:
+        - Things
+      summary: Get the attributes linked to a thing
+      description: |-
+        This method is used to get the attributes linked
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to get the information from
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: type
+          in: query
+          description: |-
+            The type of the attributes you want to get, if you want to get anykind of attributes
+            you can use the value "all"
+          required: false
+          schema:
+            type: string
+            default: all
+            enum:
+              - client
+              - server
+              - all
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributesData"
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: The API Key is incorrect or the thing has no right to request this
+        "500":
+          description: A problem occurred on the server in the process
+
+    put:
+      tags:
+        - Things
+      summary: Create or update client attributes linked to a thing
+      description: |-
+        This method is used to create or update the client attributes linked to a thing.
+
+        If the attribute already exists, it will be updated with the new value. If the attribute
+        doesn't exist, it will be created.
+        If the attribute is a server attribute, the server will return an error.
+
+        The request only returns the attributes that have been updated or created.
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to update the information
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+      security:
+        - api_key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttributesData"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributesData"
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: The API Key is incorrect or the thing has no right to request this
+        "500":
+          description: A problem occurred on the server in the process
+
+    delete:
+      tags:
+        - Things
+      summary: Delete client attributes from the server
+      description: |-
+        This method is used to delete some client attributes linked to a thing.
+
+        If the attribute is a server attribute, the server will return an error.
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to update the information
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+        - name: attributeKeys
+          in: query
+          description: The keys of the attributes to remove from the server
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              description: The attribute key
+            example: [tempUnit, tempValue]
+
+      security:
+        - api_key: []
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: The API Key is incorrect or the thing has no right to request this
+        "500":
+          description: A problem occurred on the server in the process
+
+  /things/{serialNumber}/telemetry:
+    post:
+      tags:
+        - Things
+      summary: Upload telemetry data
+      description: |-
+        This method is used to upload telemetry data to the server.
+      parameters:
+        - name: serialNumber
+          in: path
+          description: The serial number of the thing you want to update the information
+          required: true
+          schema:
+            type: string
+          example: CA-TS-00001
+        - name: api_key
+          in: header
+          description: The API Key of the thing to authenticate the request
+          required: true
+          schema:
+            type: string
+      security:
+        - api_key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TelemetryListData"
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: The parameters sent are incorrect
+        "403":
+          description: The API Key is incorrect or the thing has no right to request this
+        "500":
+          description: A problem occurred on the server in the process
+
+components:
+  schemas:
+    ThingData:
+      title: Thing info
+      type: object
+      description: Contains the information of a thing
+      properties:
+        serialNumber:
+          type: string
+          description: The thing serial number, which is unique to the serial number
+          readOnly: true
+          example: CA-TS-00001
+        name:
+          type: string
+          description: The thing name
+          example: MyTemperatureSensor
+        type:
+          type: string
+          description: The things type
+          enum:
+            - temperature
+            - yourThing
+          example: temperature
+      required:
+        - id
+        - name
+        - type
+
+    AttributeData:
+      title: Attribute information
+      type: object
+      description: Contains the attribute information
+      properties:
+        lastUpdateTs:
+          type: integer
+          readOnly: true
+          description: |-
+            This is the timestamp of the last update of the attribute. The timestamp is in seconds
+            from the Unix Epoch.
+          example: 1616425200
+        type:
+          type: string
+          description: The type of the attribute
+          readOnly: true
+          enum:
+            - client
+            - server
+          example: client
+        key:
+          type: string
+          description:
+            The attribute Key. This key is unique to the thing. The uniqueness doesn't
+            depend on the type of the attribute.
+          example: tempUnit
+        value:
+          type: object
+          description:
+            The value of the attribute, could be a string, a number, a boolean, an
+            integer, an array or an object.
+          example: °C
+      required:
+        - lastUpdateTs
+        - key
+        - type
+        - value
+
+    AttributesData:
+      title: Attributes list
+      type: array
+      description: Contains a list of attributes
+      items:
+        $ref: "#/components/schemas/AttributeData"
+
+    AttributeKeysData:
+      title: List of attribute keys
+      type: array
+      description: This is a list of attribute keys
+      items:
+        type: string
+        description: The attribute key
+      example: [tempUnit, tempValue]
+
+    TelemetryData:
+      title: Telemetry information
+      type: object
+      description: Contains the telemetry information
+      properties:
+        key:
+          type: string
+          description: The telemetry Key
+          example: tempUnit
+        value:
+          type: object
+          description:
+            The value of the telemetry element, could be a string, a number, a boolean, an
+            integer, an array or an object.
+          example: 17
+      required:
+        - key
+        - value
+
+    TelemetryListData:
+      title: This is the list of telemetry data
+      type: array
+      description: Contains a list of telemetry data
+      items:
+        $ref: "#/components/schemas/TelemetryData"
+
+    ApiKeyData:
+      title: Api Key
+      type: object
+      description: Contains the information of an API Key
+      properties:
+        key:
+          type: string
+          description: The API Key
+          readOnly: true
+          example: 1234567890
+      required:
+        - key
+
+  securitySchemes:
+    api_key:
+      type: apiKey
+      description: This is the API Key Authentication used to authenticate the thing
+      name: api_key
+      in: header
