@@ -151,6 +151,10 @@ Your project must respect the following constraints and rules.
 - `RG14`: the GitHub actions must be ok before merging the pull request.
 - `RG15`: the GitHub actions must be ok before delivering the project.
 - `RG16`: you must use SPDX license identifiers in your files.
+- `RG17`: don't modify or delete the `.markdownlint.json` and `analysis_options.yaml` files. They
+  are here to help you to write better code and documentation.
+- `RG18`: don't modify or delete the existing actions in the `.github` folder. It contains the
+  GitHub actions to check your code. You can add new actions if you need them.
 - `RG17`: at the end of the project, you must deliver the project with a tag.
   - The tag must be linked to the commit used for the demonstration done in front of the teacher.
 - `RG18`: the tag must be named: `v1.0.0`
