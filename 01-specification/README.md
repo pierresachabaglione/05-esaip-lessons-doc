@@ -155,12 +155,12 @@ Your project must respect the following constraints and rules.
   are here to help you to write better code and documentation.
 - `RG18`: don't modify or delete the existing actions in the `.github` folder. It contains the
   GitHub actions to check your code. You can add new actions if you need them.
-- `RG17`: at the end of the project, you must deliver the project with a tag.
+- `RG19`: at the end of the project, you must deliver the project with a tag.
   - The tag must be linked to the commit used for the demonstration done in front of the teacher.
-- `RG18`: the tag must be named: `v1.0.0`
-- `RG19`: all your repositories must be private.
-- `RG20`: the teacher must have access to all your repositories (_linked to this project_).
-- `RG21`: Each things must have a unique serial number: a thing serial number is formatted like
+- `RG20`: the tag must be named: `v1.0.0`
+- `RG21`: all your repositories must be private.
+- `RG22`: the teacher must have access to all your repositories (_linked to this project_).
+- `RG23`: Each things must have a unique serial number: a thing serial number is formatted like
   this: `XX-ZZ-YYYYY` where:
   - `XX` is an unique code (_unique to your company_)
     - _To have an unique code ask one to your teacher._
@@ -170,7 +170,7 @@ Your project must respect the following constraints and rules.
   - `YYYYY` is a unique number (_unique for the company_).
     - Your are free to choose the number.
   - _For instance: a temperature sensor serial number could be `CA-TS-00001`._
-- `RG22`: all your things must respect the defined API and so must be able to interact with the
+- `RG24`: all your things must respect the defined API and so must be able to interact with the
   web server of the other companies.
 
 ### Documentation
