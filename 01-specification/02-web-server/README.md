@@ -54,6 +54,19 @@ This file contains **WHAT** your customer expects from the web server.
 - `NWS17`: the server must store the attributes with the timestamp of the reception.
 - `NWS18`: the server must store the data permanently (when you restart the server, the data must
   still be there).
+- `NWS19`: the server must have a gui interface to display the requests done by the things and the
+  mobile app. The requests must be displayed with their timestamp and the thing which did the
+  request. The interface must be updated in real-time. The log level of each request must be
+  displayed. The view must be able to filter the requests by their log level.
+- `NWS20`: the server must have a gui interface to display the telemetry data received from the
+  things. The telemetry data must be displayed with their timestamp and the thing which sent the
+  data. The interface must be updated in real-time.
+- `NWS21`: the server must have a gui interface to display the attributes received from the things
+- `NWS22`: the server must have a gui interface to display the attributes received from the mobile
+  app
+- `NWS23`: the server must have a gui interface to display the things registered to the server. The
+  things must be displayed with their unique identifier, their type, their API key. The interface
+  must be updated in real-time.
 
 ### SHOULD have
 
