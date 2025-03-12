@@ -172,6 +172,8 @@ Your project must respect the following constraints and rules.
   - _For instance: a temperature sensor serial number could be `CA-TS-00001`._
 - `RG24`: all your things must respect the defined API and so must be able to interact with the
   web server of the other companies.
+- `RG25`: have only one class in each file, the only exception is for the `StatefulWidget` and its
+  `State` class.
 
 ### Documentation
 
