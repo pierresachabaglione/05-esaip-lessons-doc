@@ -150,7 +150,7 @@ Your project must respect the following constraints and rules.
 - `RG13`: all the applications must be written in Flutter.
 - `RG14`: the GitHub actions must be ok before merging the pull request.
 - `RG15`: the GitHub actions must be ok before delivering the project.
-- `RG16`: you must use SPDX license identifiers in your files.
+- ~~`RG16`: you must use SPDX license identifiers in your files.~~
 - `RG17`: don't modify or delete the `.markdownlint.json` and `analysis_options.yaml` files. They
   are here to help you to write better code and documentation.
 - `RG18`: don't modify or delete the existing actions in the `.github` folder. It contains the
@@ -158,7 +158,7 @@ Your project must respect the following constraints and rules.
 - `RG19`: at the end of the project, you must deliver the project with a tag.
   - The tag must be linked to the commit used for the demonstration done in front of the teacher.
 - `RG20`: the tag must be named: `v1.0.0`
-- `RG21`: all your repositories must be private.
+- ~~`RG21`: all your repositories must be private.~~
 - `RG22`: the teacher must have access to all your repositories (_linked to this project_).
 - `RG23`: Each things must have a unique serial number: a thing serial number is formatted like
   this: `XX-ZZ-YYYYY` where:
